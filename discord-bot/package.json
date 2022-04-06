@@ -1,0 +1,24 @@
+{
+  "name": "terminal-emulator-discord-bot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "deploy-commands": "ts-node-dev src/deployCommands.ts",
+    "logs": "tail -f terminal-emulator.log | bunyan",
+    "commands": "tail -f terminal-emulator.log | bunyan -c 'this.isCommand'"
+  },
+  "author": "Sophie Katz",
+  "devDependencies": {
+    "@types/bunyan": "^1.8.8",
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.4",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.15"
+  }
+}

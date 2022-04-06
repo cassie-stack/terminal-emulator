@@ -1,0 +1,4 @@
+{
+    "jest.rootPath": "discord-bot/src",
+    "jest.jestCommandLine": ""
+}
