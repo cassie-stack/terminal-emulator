@@ -1,4 +1,4 @@
-import { Client, Intents, Interaction, CacheType } from "discord.js";
+import { Client, Intents, Interaction, CacheType, GuildMemberRoleManager } from "discord.js";
 import Bot from "./Bot";
 import log from "./Common/Logging";
 import Config from "./Common/Config";
@@ -24,7 +24,12 @@ export default class BotDiscord extends Bot {
     
         client.on("interactionCreate", async interaction => {
             try {
-                const request = BotDiscord.getRequestFromInteraction(interaction);
+                if (!this.hasPermission(interaction)) {
+                    BotDiscord.enactResponseOnInteraction(new ResponseText(`You need the \`${this.config.controllerRoleName}\` role to use this bot!`), interaction);
+                    return;
+                }
+
+                const request = this.getRequestFromInteraction(interaction);
                 const response = this.handle(request);
                 BotDiscord.enactResponseOnInteraction(response, interaction);
             } catch (e) {
@@ -36,7 +41,11 @@ export default class BotDiscord extends Bot {
         await client.login(this.config.botToken);
     }
 
-    private static getRequestFromInteraction(interaction: Interaction<CacheType>): RequestBase {
+    private hasPermission(interaction: Interaction<CacheType>): boolean {
+        return (interaction.member?.roles as GuildMemberRoleManager).cache.some(role => role.name === this.config.controllerRoleName);
+    }
+
+    private getRequestFromInteraction(interaction: Interaction<CacheType>): RequestBase {
         if (interaction.isCommand()) {
             if (Object.values(CommandKind).map(i => i as string).includes(interaction.commandName)) {
                 return new RequestCommand(interaction.commandName as CommandKind);

@@ -13,6 +13,9 @@ const commands = [
     new SlashCommandBuilder()
         .setName("cum")
         .setDescription("Command Sophie to have an orgasm"),
+    new SlashCommandBuilder()
+        .setName("shutup")
+        .setDescription("Command Sophie to shut up"),
 ].map(i => i.toJSON());
 
 const rest = new REST({version: "9"}).setToken(config.botToken);

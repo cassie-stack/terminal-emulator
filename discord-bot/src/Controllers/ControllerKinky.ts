@@ -14,6 +14,10 @@ export default class ControllerKinky extends ControllerBase {
                     logCommand("cum");
                     return new ResponseText("Sophie has been commanded to cum.");
                 }
+                case CommandKind.ShutUp: {
+                    logCommand("shutup");
+                    return new ResponseText("Sophie has been commanded to shut up.");
+                }
             }
         }
     }

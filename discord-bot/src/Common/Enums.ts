@@ -1,4 +1,5 @@
 export enum CommandKind {
     Ping = "ping",
-    Cum = "cum"
+    Cum = "cum",
+    ShutUp = "shutup",
 }
